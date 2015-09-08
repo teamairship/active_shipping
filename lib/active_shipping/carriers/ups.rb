@@ -457,6 +457,10 @@ module ActiveShipping
               xml.Code('GIF')
             end
             xml.HTTPUserAgent('Mozilla/4.5') # hmmm
+            xml.LabelStockSize do
+              xml.Height('4')
+              xml.Width('8')
+            end
             xml.LabelImageFormat('GIF') do
               xml.Code('GIF')
             end

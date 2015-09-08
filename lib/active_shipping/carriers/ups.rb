@@ -461,9 +461,6 @@ module ActiveShipping
               xml.Height('4')
               xml.Width('8')
             end
-            xml.LabelImageFormat('GIF') do
-              xml.Code('GIF')
-            end
           end
         end
       end

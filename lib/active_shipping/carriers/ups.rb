@@ -454,7 +454,7 @@ module ActiveShipping
           # so I'm going with something very simple for now.
           xml.LabelSpecification do
             xml.LabelPrintMethod do
-              xml.Code('GIF')
+              xml.Code('ZPL')
             end
             xml.HTTPUserAgent('Mozilla/4.5') # hmmm
             xml.LabelStockSize do

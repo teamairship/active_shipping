@@ -351,6 +351,13 @@ module ActiveShipping
             # Required element. The company whose account is responsible for the label(s).
             build_location_node(xml, 'Shipper', options[:shipper] || origin, options)
 
+            # Attempt to add return service
+            if options[:return_service]
+              xml.ReturnService do
+                xml.Code(options[:service_code] || '03')
+              end
+            end
+
             if options[:saturday_delivery]
               xml.ShipmentServiceOptions do
                 xml.SaturdayDelivery

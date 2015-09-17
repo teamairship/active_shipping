@@ -342,21 +342,23 @@ module ActiveShipping
           end
 
           xml.Shipment do
-            xml.Service do
-              xml.Code(options[:service_code] || '03')
+            # Attempt to add return service
+            if options[:return_service]
+              xml.ReturnService do
+                xml.Code('8')
+              end
+            else
+              xml.Service do
+                xml.Code(options[:service_code] || '03')
+              end
             end
+
 
             build_location_node(xml, 'ShipTo', destination, options)
             build_location_node(xml, 'ShipFrom', origin, options)
             # Required element. The company whose account is responsible for the label(s).
             build_location_node(xml, 'Shipper', options[:shipper] || origin, options)
 
-            # Attempt to add return service
-            if options[:return_service]
-              xml.ReturnService do
-                xml.Code('9')
-              end
-            end
 
             if options[:saturday_delivery]
               xml.ShipmentServiceOptions do

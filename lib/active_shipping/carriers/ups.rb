@@ -354,7 +354,7 @@ module ActiveShipping
             # Attempt to add return service
             if options[:return_service]
               xml.ReturnService do
-                xml.Code('3')
+                xml.Code('9')
               end
             end
 

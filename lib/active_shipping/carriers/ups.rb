@@ -347,12 +347,11 @@ module ActiveShipping
               xml.ReturnService do
                 xml.Code('8')
               end
-            else
-              xml.Service do
-                xml.Code(options[:service_code] || '03')
-              end
             end
 
+            xml.Service do
+              xml.Code(options[:service_code] || '03')
+            end
 
             build_location_node(xml, 'ShipTo', destination, options)
             build_location_node(xml, 'ShipFrom', origin, options)

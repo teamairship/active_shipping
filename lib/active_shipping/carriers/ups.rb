@@ -343,10 +343,14 @@ module ActiveShipping
 
           xml.Shipment do
             # Attempt to add return service
-            if options[:return_service]
-              xml.ReturnService do
-                xml.Code('8')
-              end
+            # if options[:return_service]
+            #   xml.ReturnService do
+            #     xml.Code('9')
+            #   end
+            # end
+
+            xml.ReturnService do
+              xml.Code('9')
             end
 
             xml.Service do

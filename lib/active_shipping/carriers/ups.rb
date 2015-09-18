@@ -342,15 +342,11 @@ module ActiveShipping
           end
 
           xml.Shipment do
-            # Attempt to add return service
-            # if options[:return_service]
-            #   xml.ReturnService do
-            #     xml.Code('9')
-            #   end
-            # end
-
-            xml.ReturnService do
-              xml.Code('9')
+            # Provide option for return service
+            if options[:return_service]
+              xml.ReturnService do
+                xml.Code('9')
+              end
             end
 
             xml.Service do
@@ -465,13 +461,23 @@ module ActiveShipping
           # I don't know all of the options that UPS supports for labels
           # so I'm going with something very simple for now.
           xml.LabelSpecification do
-            xml.LabelPrintMethod do
-              xml.Code('ZPL')
-            end
-            xml.HTTPUserAgent('Mozilla/4.5') # hmmm
-            xml.LabelStockSize do
-              xml.Height('4')
-              xml.Width('8')
+            if options[:zpl_label]
+              xml.LabelPrintMethod do
+                xml.Code('ZPL')
+              end
+              xml.HTTPUserAgent('Mozilla/4.5') # hmmm
+              xml.LabelStockSize do
+                xml.Height('4')
+                xml.Width('8')
+              end
+            else
+              xml.LabelPrintMethod do
+                xml.Code('GIF')
+              end
+              xml.HTTPUserAgent('Mozilla/4.5') # hmmm
+              xml.LabelImageFormat('GIF') do
+                xml.Code('GIF')
+              end
             end
           end
         end
@@ -646,7 +652,10 @@ module ActiveShipping
       xml.Package do
 
         # not implemented:  * Shipment/Package/PackagingType element
-        #                   * Shipment/Package/Description element
+
+        if options[:description]
+          xml.Description(options[:description])
+        end
 
         xml.PackagingType do
           xml.Code('02')

@@ -342,6 +342,13 @@ module ActiveShipping
           end
 
           xml.Shipment do
+            # Provide option for return service
+            if options[:return_service]
+              xml.ReturnService do
+                xml.Code('9')
+              end
+            end
+
             xml.Service do
               xml.Code(options[:service_code] || '03')
             end
@@ -350,6 +357,7 @@ module ActiveShipping
             build_location_node(xml, 'ShipFrom', origin, options)
             # Required element. The company whose account is responsible for the label(s).
             build_location_node(xml, 'Shipper', options[:shipper] || origin, options)
+
 
             if options[:saturday_delivery]
               xml.ShipmentServiceOptions do
@@ -453,13 +461,23 @@ module ActiveShipping
           # I don't know all of the options that UPS supports for labels
           # so I'm going with something very simple for now.
           xml.LabelSpecification do
-            xml.LabelPrintMethod do
-              xml.Code('ZPL')
-            end
-            xml.HTTPUserAgent('Mozilla/4.5') # hmmm
-            xml.LabelStockSize do
-              xml.Height('4')
-              xml.Width('8')
+            if options[:zpl_label]
+              xml.LabelPrintMethod do
+                xml.Code('ZPL')
+              end
+              xml.HTTPUserAgent('Mozilla/4.5') # hmmm
+              xml.LabelStockSize do
+                xml.Height('4')
+                xml.Width('8')
+              end
+            else
+              xml.LabelPrintMethod do
+                xml.Code('GIF')
+              end
+              xml.HTTPUserAgent('Mozilla/4.5') # hmmm
+              xml.LabelImageFormat('GIF') do
+                xml.Code('GIF')
+              end
             end
           end
         end
@@ -634,7 +652,8 @@ module ActiveShipping
       xml.Package do
 
         # not implemented:  * Shipment/Package/PackagingType element
-        #                   * Shipment/Package/Description element
+
+        xml.Description(options[:description] || "Sporting Goods")
 
         xml.PackagingType do
           xml.Code('02')

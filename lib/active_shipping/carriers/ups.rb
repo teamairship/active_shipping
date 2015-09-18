@@ -653,9 +653,7 @@ module ActiveShipping
 
         # not implemented:  * Shipment/Package/PackagingType element
 
-        if options[:description]
-          xml.Description(options[:description])
-        end
+        xml.Description(options[:description] || "Sporting Goods")
 
         xml.PackagingType do
           xml.Code('02')

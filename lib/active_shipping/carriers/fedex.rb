@@ -215,6 +215,13 @@ module ActiveShipping
               end
             end
 
+            xml.SmartPostDetail do
+              xml.Indicia('PARCEL_SELECT')
+              xml.AncillaryEndorsement('CARRIER_LEAVE_IF_NO_RESPONSE')
+              xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
+              xml.HubId('5303')
+            end
+
             xml.LabelSpecification do
               xml.LabelFormatType('COMMON2D')
               xml.ImageType('ZPLII')

@@ -222,6 +222,12 @@ module ActiveShipping
               xml.HubId(options[:hubid])
             end
 
+            xml.ShipmentSpecialServicesRequested do
+              xml.ReturnShipmentDetail do
+                xml.ReturnType('PRINT_RETURN_LABEL')
+              end
+            end
+
             xml.LabelSpecification do
               xml.LabelFormatType('COMMON2D')
               xml.ImageType('ZPLII')

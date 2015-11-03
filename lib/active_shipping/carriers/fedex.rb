@@ -222,12 +222,6 @@ module ActiveShipping
               xml.HubId(options[:hubid])
             end
 
-            xml.ShipmentSpecialServicesRequested do
-              xml.ReturnShipmentDetail do
-                xml.ReturnType('PRINT_RETURN_LABEL')
-              end
-            end
-
             xml.LabelSpecification do
               xml.LabelFormatType('COMMON2D')
               xml.ImageType('ZPLII')
@@ -258,6 +252,9 @@ module ActiveShipping
                   xml.SpecialServiceTypes("SIGNATURE_OPTION")
                   xml.SignatureOptionDetail do
                     xml.OptionType(SIGNATURE_OPTION_CODES[package.options[:signature_option] || :default_for_service])
+                  end
+                  xml.ReturnShipmentDetail do
+                    xml.ReturnType('PRINT_RETURN_LABEL')
                   end
                 end
               end

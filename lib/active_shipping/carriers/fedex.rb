@@ -215,10 +215,12 @@ module ActiveShipping
               end
             end
 
-            xml.SpecialServicesRequested do
-              xml.SpecialServiceTypes('RETURN_SHIPMENT')
-              xml.ReturnShipmentDetail do
-                xml.ReturnType('PRINT_RETURN_LABEL')
+            if options[:return]
+              xml.SpecialServicesRequested do
+                xml.SpecialServiceTypes('RETURN_SHIPMENT')
+                xml.ReturnShipmentDetail do
+                  xml.ReturnType('PRINT_RETURN_LABEL')
+                end
               end
             end
 

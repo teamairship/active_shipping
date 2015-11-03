@@ -219,7 +219,7 @@ module ActiveShipping
               xml.Indicia('PARCEL_SELECT')
               xml.AncillaryEndorsement('CARRIER_LEAVE_IF_NO_RESPONSE')
               xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
-              xml.HubId('5303')
+              xml.HubId(options[:hubid])
             end
 
             xml.LabelSpecification do

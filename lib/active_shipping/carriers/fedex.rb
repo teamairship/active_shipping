@@ -224,12 +224,6 @@ module ActiveShipping
               end
             end
 
-            if options[:return]
-              xml.DocumentSpecification do
-                xml.ReturnInstructionsDetail
-              end
-            end
-
             xml.SmartPostDetail do
               xml.Indicia('PARCEL_SELECT')
               xml.AncillaryEndorsement('CARRIER_LEAVE_IF_NO_RESPONSE')

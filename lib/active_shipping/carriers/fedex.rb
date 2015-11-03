@@ -215,6 +215,12 @@ module ActiveShipping
               end
             end
 
+            xml.SpecialServicesRequested do
+              xml.ReturnShipmentDetail do
+                xml.ReturnType('PRINT_RETURN_LABEL')
+              end
+            end
+
             xml.SmartPostDetail do
               xml.Indicia('PARCEL_SELECT')
               xml.AncillaryEndorsement('CARRIER_LEAVE_IF_NO_RESPONSE')
@@ -252,9 +258,6 @@ module ActiveShipping
                   xml.SpecialServiceTypes("SIGNATURE_OPTION")
                   xml.SignatureOptionDetail do
                     xml.OptionType(SIGNATURE_OPTION_CODES[package.options[:signature_option] || :default_for_service])
-                  end
-                  xml.ReturnShipmentDetail do
-                    xml.ReturnType('PRINT_RETURN_LABEL')
                   end
                 end
               end

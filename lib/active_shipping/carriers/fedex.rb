@@ -216,6 +216,7 @@ module ActiveShipping
             end
 
             xml.SpecialServicesRequested do
+              xml.SpecialServiceTypes('RETURN_SHIPMENT')
               xml.ReturnShipmentDetail do
                 xml.ReturnType('PRINT_RETURN_LABEL')
               end

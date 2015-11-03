@@ -226,9 +226,7 @@ module ActiveShipping
 
             if options[:return]
               xml.DocumentSpecification do
-                xml.ReturnInstructionsDetail do
-                  xml.Format
-                end
+                xml.ReturnInstructionsDetail
               end
             end
 

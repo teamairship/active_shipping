@@ -215,15 +215,11 @@ module ActiveShipping
               end
             end
 
-            if options[:return]
+            if options[:return] == true
               xml.SpecialServicesRequested do
                 xml.SpecialServiceTypes('RETURN_SHIPMENT')
                 xml.ReturnShipmentDetail do
                   xml.ReturnType('PRINT_RETURN_LABEL')
-                  xml.ReturnAssociation do
-                    xml.TrackingNumber(options[:tracking_number])
-                    xml.ShipDate(Date.today.strftime("%F"))
-                  end
                 end
               end
             end

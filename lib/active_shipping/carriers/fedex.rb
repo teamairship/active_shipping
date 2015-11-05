@@ -242,7 +242,7 @@ module ActiveShipping
                 xml.ShippingDocumentTypes('RETURN_INSTRUCTIONS')
                 xml.ReturnInstructionsDetail do
                   xml.Format do
-                    xml.ImageType('ZPLII')
+                    xml.ImageType('PDF')
                     xml.StockType('STOCK_4X6')
                   end
                 end

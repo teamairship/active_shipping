@@ -264,16 +264,24 @@ module ActiveShipping
                 build_package_weight_node(xml, package, imperial)
                 build_package_dimensions_node(xml, package, imperial)
 
-                # Reference Numbers
-                reference_numbers = Array(package.options[:reference_numbers])
-                if reference_numbers.size > 0
-                  xml.CustomerReferences do
-                    reference_numbers.each do |reference_number_info|
-                      xml.CustomerReferenceType(reference_number_info[:type] || "CUSTOMER_REFERENCE")
-                      xml.Value(reference_number_info[:value])
-                    end
-                  end
+                # Rolling my own references
+                xml.CustomerReferences do
+                  xml.CustomerReferenceType("CUSTOMER_REFERENCE")
+                  xml.Value(options[:reference])
+                  xml.CustomerReferenceType("INVOICE_NUMBER")
+                  xml.Value(options[:reference])
                 end
+
+                # Reference Numbers
+                # reference_numbers = Array(package.options[:reference_numbers])
+                # if reference_numbers.size > 0
+                #   xml.CustomerReferences do
+                #     reference_numbers.each do |reference_number_info|
+                #       xml.CustomerReferenceType(reference_number_info[:type] || "CUSTOMER_REFERENCE")
+                #       xml.Value(reference_number_info[:value])
+                #     end
+                #   end
+                # end
 
                 xml.SpecialServicesRequested do
                   xml.SpecialServiceTypes("SIGNATURE_OPTION")

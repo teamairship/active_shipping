@@ -222,6 +222,7 @@ module ActiveShipping
                   xml.ReturnType('PRINT_RETURN_LABEL')
                   xml.ReturnAssociation do
                     xml.TrackingNumber(options[:tracking_number])
+                    xml.ShipDate(Date.today.strftime("%F"))
                   end
                 end
               end

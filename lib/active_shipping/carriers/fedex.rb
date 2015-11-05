@@ -220,6 +220,7 @@ module ActiveShipping
                 xml.SpecialServiceTypes('RETURN_SHIPMENT')
                 xml.ReturnShipmentDetail do
                   xml.ReturnType('PRINT_RETURN_LABEL')
+                  xml.ReturnAssociation(options[:tracking_number])
                 end
               end
             end
@@ -237,17 +238,19 @@ module ActiveShipping
               xml.LabelStockType('STOCK_4X6')
             end
 
-            if options[:return]
-              xml.ShippingDocumentSpecification do
-                xml.ShippingDocumentTypes('RETURN_INSTRUCTIONS')
-                xml.ReturnInstructionsDetail do
-                  xml.Format do
-                    xml.ImageType('PDF')
-                    xml.StockType('STOCK_4X6')
-                  end
-                end
-              end
-            end
+            # **Rick** Receiving an XML error when attempting to request the
+            # return instructions in the format ZPLII
+            # if options[:return]
+            #   xml.ShippingDocumentSpecification do
+            #     xml.ShippingDocumentTypes('RETURN_INSTRUCTIONS')
+            #     xml.ReturnInstructionsDetail do
+            #       xml.Format do
+            #         xml.ImageType('PDF')
+            #         xml.StockType('STOCK_4X6')
+            #       end
+            #     end
+            #   end
+            # end
 
             xml.RateRequestTypes('ACCOUNT')
 

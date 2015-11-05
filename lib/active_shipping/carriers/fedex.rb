@@ -240,6 +240,12 @@ module ActiveShipping
             if options[:return]
               xml.ShippingDocumentSpecification do
                 xml.ShippingDocumentTypes('RETURN_INSTRUCTIONS')
+                xml.ReturnInstructionsDetail do
+                  xml.Format do
+                    xml.ImageType('ZPLII')
+                    xml.StockType('STOCK_4X6')
+                  end
+                end
               end
             end
 

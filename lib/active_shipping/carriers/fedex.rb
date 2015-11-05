@@ -222,14 +222,6 @@ module ActiveShipping
                   xml.ReturnType('PRINT_RETURN_LABEL')
                 end
               end
-
-              xml.ReturnInstructionsDetail do
-                xml.LabelSpecification do
-                  xml.LabelFormatType('COMMON2D')
-                  xml.ImageType('ZPLII')
-                  xml.LabelStockType('STOCK_4X6')
-                end
-              end
             end
 
             xml.SmartPostDetail do
@@ -243,6 +235,12 @@ module ActiveShipping
               xml.LabelFormatType('COMMON2D')
               xml.ImageType('ZPLII')
               xml.LabelStockType('STOCK_4X6')
+            end
+
+            if options[:return]
+              xml.ShippingDocumentSpecification do
+                xml.ReturnInstructionsDetail()
+              end
             end
 
             xml.RateRequestTypes('ACCOUNT')

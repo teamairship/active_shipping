@@ -266,7 +266,7 @@ module ActiveShipping
 
                 # Rolling my own references
                 xml.CustomerReferences do
-                  xml.CustomerReferenceType("CUSTOMER_REFERENCE")
+                  xml.CustomerReferenceType("INVOICE_NUMBER")
                   xml.Value(options[:reference])
                   # xml.CustomerReferenceType("INVOICE_NUMBER")
                   # xml.Value(options[:reference])

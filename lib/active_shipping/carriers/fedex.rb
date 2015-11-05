@@ -223,13 +223,11 @@ module ActiveShipping
                 end
               end
 
-              xml.ShippingDocumentSpecification do
-                xml.ReturnInstructionsDetail do
-                  xml.LabelSpecification do
-                    xml.LabelFormatType('COMMON2D')
-                    xml.ImageType('ZPLII')
-                    xml.LabelStockType('STOCK_4X6')
-                  end
+              xml.ReturnInstructionsDetail do
+                xml.LabelSpecification do
+                  xml.LabelFormatType('COMMON2D')
+                  xml.ImageType('ZPLII')
+                  xml.LabelStockType('STOCK_4X6')
                 end
               end
             end

@@ -222,6 +222,15 @@ module ActiveShipping
                   xml.ReturnType('PRINT_RETURN_LABEL')
                 end
               end
+
+              xml.ShippingDocumentSpecification do
+                xml.ReturnInstructionsDetail do
+                  xml.Format do
+                    xml.ImageType("ZPLII")
+                    xml.StockType("STOCK_4X6")
+                  end
+                end
+              end
             end
 
             xml.SmartPostDetail do

@@ -220,7 +220,9 @@ module ActiveShipping
                 xml.SpecialServiceTypes('RETURN_SHIPMENT')
                 xml.ReturnShipmentDetail do
                   xml.ReturnType('PRINT_RETURN_LABEL')
-                  xml.ReturnAssociation(options[:tracking_number])
+                  xml.ReturnAssociation do
+                    xml.TrackingNumber(options[:tracking_number])
+                  end
                 end
               end
             end

@@ -239,7 +239,7 @@ module ActiveShipping
 
             if options[:return]
               xml.ShippingDocumentSpecification do
-                xml.ReturnInstructionsDetail()
+                xml.ShippingDocumentTypes('RETURN_INSTRUCTIONS')
               end
             end
 

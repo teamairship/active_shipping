@@ -216,7 +216,7 @@ module ActiveShipping
               end
             end
 
-            if options[:return] == true
+            if options[:return_shipment] == true
               xml.SpecialServicesRequested do
                 xml.SpecialServiceTypes('RETURN_SHIPMENT')
                 xml.ReturnShipmentDetail do
@@ -228,7 +228,7 @@ module ActiveShipping
             xml.SmartPostDetail do
               xml.Indicia('PARCEL_SELECT')
               xml.AncillaryEndorsement('ADDRESS_CORRECTION')
-              # xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
+              xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
               xml.HubId(options[:hub_id])
             end
 
@@ -291,8 +291,7 @@ module ActiveShipping
           end
         end
       end
-      result = xml_builder.to_xml
-      pp result
+      xml_builder.to_xml
     end
 
     def build_contact_address_nodes(xml, location)

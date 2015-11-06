@@ -228,7 +228,7 @@ module ActiveShipping
             xml.SmartPostDetail do
               xml.Indicia('PARCEL_SELECT')
               xml.AncillaryEndorsement('ADDRESS_CORRECTION')
-              xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
+              # xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
               xml.HubId(options[:hub_id])
             end
 

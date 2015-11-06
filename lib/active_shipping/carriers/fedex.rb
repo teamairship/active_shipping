@@ -225,6 +225,13 @@ module ActiveShipping
               end
             end
 
+            xml.SmartPostDetail do
+              xml.Indicia('PARCEL_SELECT')
+              xml.AncillaryEndorsement('ADDRESS_CORRECTION')
+              xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
+              xml.HubId(options[:hub_id])
+            end
+
             xml.LabelSpecification do
               xml.LabelFormatType('COMMON2D')
               xml.ImageType('ZPLII')
@@ -354,10 +361,8 @@ module ActiveShipping
               build_rate_request_types_node(xml)
             else
               xml.SmartPostDetail do
-                xml.Indicia('PARCEL_SELECT')
-                xml.AncillaryEndorsement('ADDRESS_CORRECTION')
-                xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
-                xml.HubId(options[:hub_id])
+                xml.Indicia(options[:smart_post_indicia] || 'PARCEL_SELECT')
+                xml.HubId(options[:smart_post_hub_id] || 5902) # default to LA
               end
 
               build_rate_request_types_node(xml)

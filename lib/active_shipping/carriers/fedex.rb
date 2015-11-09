@@ -291,11 +291,7 @@ module ActiveShipping
           end
         end
       end
-      # Here for testing purposes
-      # xml_builder.to_xml
-      test_response = xml_builder.to_xml
-      pp "BLAH"
-      pp test_response
+      xml_builder.to_xml
     end
 
     def build_contact_address_nodes(xml, location)

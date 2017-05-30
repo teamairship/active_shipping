@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.executables   = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_path  = "lib"
+  s.post_install_message  = "Thanks for installing ActiveShipping! We recommend upgrading to v2.0, which modernizes the code base and uses the shopify/measured library for handling unit conversions."
 
   s.add_dependency("quantified", "~> 1.0.1")
   s.add_dependency("activesupport", ">= 3.2", "< 5.2.0")

@@ -404,6 +404,13 @@ module ActiveShipping
           end
 
           xml.Shipment do
+            # Provide option for return service
+            if options[:return_service]
+              xml.ReturnService do
+                xml.Code('9')
+              end
+            end
+
             xml.Service do
               xml.Code(options[:service_code] || '03')
             end
@@ -412,6 +419,7 @@ module ActiveShipping
             build_location_node(xml, 'ShipFrom', origin, options)
             # Required element. The company whose account is responsible for the label(s).
             build_location_node(xml, 'Shipper', shipper, options)
+
 
             if options[:saturday_delivery]
               xml.ShipmentServiceOptions do
@@ -511,9 +519,7 @@ module ActiveShipping
               xml.Width(label_size[1])
             end
 
-            xml.LabelPrintMethod do
               xml.Code(label_format)
-            end
 
             # API requires these only if returning a GIF formated label
             if label_format == 'GIF'

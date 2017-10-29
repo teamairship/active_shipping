@@ -13,3 +13,5 @@ doc/
 .idea
 .bundle
 .byebug_history
+.rbenv-vars
+test.rb

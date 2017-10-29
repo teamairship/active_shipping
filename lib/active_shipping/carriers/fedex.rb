@@ -10,7 +10,8 @@ module ActiveShipping
     cattr_reader :name
     @@name = "FedEx"
 
-    TEST_URL = 'https://gatewaybeta.fedex.com:443/xml'
+    # TEST_URL = 'https://gatewaybeta.fedex.com:443/xml'
+    TEST_URL = 'https://wsbeta.fedex.com:443/xml'
     LIVE_URL = 'https://gateway.fedex.com:443/xml'
 
     CARRIER_CODES = {
@@ -224,11 +225,41 @@ module ActiveShipping
               end
             end
 
+            if options[:return_shipment] == true
+              xml.SpecialServicesRequested do
+                xml.SpecialServiceTypes('RETURN_SHIPMENT')
+                xml.ReturnShipmentDetail do
+                  xml.ReturnType('PRINT_RETURN_LABEL')
+                end
+              end
+            end
+
+            xml.SmartPostDetail do
+              xml.Indicia('PARCEL_SELECT')
+              xml.AncillaryEndorsement('ADDRESS_CORRECTION')
+              xml.SpecialServices('USPS_DELIVERY_CONFIRMATION')
+              xml.HubId(options[:hub_id])
+            end
+
             xml.LabelSpecification do
               xml.LabelFormatType('COMMON2D')
               xml.ImageType(options[:label_format] || 'PNG')
               xml.LabelStockType(options[:label_stock_type] || DEFAULT_LABEL_STOCK_TYPE)
             end
+
+            # **Rick** Receiving an XML error when attempting to request the
+            # return instructions in the format ZPLII
+            # if options[:return]
+            #   xml.ShippingDocumentSpecification do
+            #     xml.ShippingDocumentTypes('RETURN_INSTRUCTIONS')
+            #     xml.ReturnInstructionsDetail do
+            #       xml.Format do
+            #         xml.ImageType('PDF')
+            #         xml.StockType('STOCK_4X6')
+            #       end
+            #     end
+            #   end
+            # end
 
             xml.RateRequestTypes('ACCOUNT')
 
@@ -239,16 +270,24 @@ module ActiveShipping
                 build_package_weight_node(xml, package, imperial)
                 build_package_dimensions_node(xml, package, imperial)
 
-                # Reference Numbers
-                reference_numbers = Array(package.options[:reference_numbers])
-                if reference_numbers.size > 0
-                  reference_numbers.each do |reference_number_info|
-                    xml.CustomerReferences do
-                      xml.CustomerReferenceType(reference_number_info[:type] || "CUSTOMER_REFERENCE")
-                      xml.Value(reference_number_info[:value])
-                    end
-                  end
+                # Rolling my own references
+                xml.CustomerReferences do
+                  xml.CustomerReferenceType("INVOICE_NUMBER")
+                  xml.Value(options[:invoice])
+                  # xml.CustomerReferenceType("INVOICE_NUMBER")
+                  # xml.Value(options[:reference])
                 end
+
+                # Reference Numbers
+                # reference_numbers = Array(package.options[:reference_numbers])
+                # if reference_numbers.size > 0
+                #   xml.CustomerReferences do
+                #     reference_numbers.each do |reference_number_info|
+                #       xml.CustomerReferenceType(reference_number_info[:type] || "CUSTOMER_REFERENCE")
+                #       xml.Value(reference_number_info[:value])
+                #     end
+                #   end
+                # end
 
                 xml.SpecialServicesRequested do
                   xml.SpecialServiceTypes("SIGNATURE_OPTION")

@@ -219,7 +219,7 @@ module ActiveShipping
             end
 
             xml.ShippingChargesPayment do
-              xml.PaymentType('SENDER')
+              xml.PaymentType(options[:payment_type] || 'SENDER')
               xml.Payor do
                 build_shipment_responsible_party_node(xml, options[:shipper] || origin)
               end
